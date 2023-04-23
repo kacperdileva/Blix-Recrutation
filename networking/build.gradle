@@ -1,0 +1,59 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+
+        buildConfigField "String", "API_KEY", localProperties['API_KEY']
+    }
+
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField 'String', 'SERVER_URL', '"http://data.fixer.io/api/"'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'String', 'SERVER_URL', '"http://data.fixer.io/api/"'
+        }
+    }
+}
+
+dependencies {
+    api project('::core')
+
+    implementation "com.google.dagger:hilt-android:$rootProject.hilt"
+    kapt "com.google.dagger:hilt-compiler:$rootProject.hilt"
+
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttp"
+    api "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$rootProject.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$rootProject.retrofit"
+    api "androidx.paging:paging-runtime-ktx:$paging"
+    api "androidx.paging:paging-rxjava3:$paging"
+    api "io.reactivex.rxjava3:rxjava:$rootProject.rx_java"
+    api "io.reactivex.rxjava3:rxkotlin:$rootProject.rx_kotlin"
+    api "io.reactivex.rxjava3:rxandroid:$rootProject.rx_android"
+
+    testImplementation "junit:junit:$rootProject.junit"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$rootProject.mockitoKotlin"
+
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.junitExt"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
+    testImplementation "org.mockito:mockito-core:$rootProject.mockito"
+    testImplementation "com.google.truth:truth:$rootProject.truth"
+}

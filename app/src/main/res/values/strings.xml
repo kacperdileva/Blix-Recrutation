@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Blix Recrutation</string>
+    <string name="fixer">Fixer.io</string>
+    <string name="default_base_currency">EUR</string>
+
+    <!-- Common -->
+    <string name="back">Back</string>
+</resources>

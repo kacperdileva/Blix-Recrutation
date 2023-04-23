@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ItemPrice">
+        <attr name="title" />
+        <attr name="price" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="WhiteHeader">
+        <attr name="title" />
+        <attr name="baseCurrency" />
+    </declare-styleable>
+</resources>
